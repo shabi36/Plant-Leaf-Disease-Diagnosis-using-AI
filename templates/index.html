@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>GreenDetect – Plant Health Simplified 🍃</h1>
+
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="image" accept="image/*" required onchange="previewImage(event)">
+
+            <!-- Display Uploaded Image -->
+            <div class="image-preview">
+                {% if image_data %}
+                <h2>Uploaded Image:</h2>
+                <img src="data:image/png;base64,{{ image_data }}" alt="Uploaded Image">
+                {% endif %}
+            </div>
+
+            <!-- Moved Predict Button Below Image -->
+            <button type="submit">Diagnose 🩺</button>
+        </form>
+
+        <!-- Show Prediction -->
+        {% if prediction %}
+        <div class="result">
+            <h2> 🔍 Analysis:</h2>
+            <p>{{ prediction }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.createElement("img");
+                output.src = reader.result;
+                output.className = "preview-img";
+
+                const previewContainer = document.querySelector(".image-preview");
+                previewContainer.innerHTML = "<h2>Uploaded Image:</h2>";
+                previewContainer.appendChild(output);
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+</body>
+</html>
