@@ -6,7 +6,7 @@ from PIL import Image
 import google.generativeai as genai
 
 # Configure Gemini API
-genai.configure(api_key="AIzaSyDwHlf_LEBVew4POMa9lZYkvhvfkxb73Jk")
+genai.configure(api_key="your api key")
 
 app = Flask(__name__)
 
